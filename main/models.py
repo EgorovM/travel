@@ -56,9 +56,10 @@ class Filter(models.Model):
 class Consumer(models.Model):
 	user      = models.OneToOneField(User)
 	rate      = models.CharField(max_length = 50,default = "Beginner", choices = RATE)
-	telephone = models.CharField(max_length = 100,default = "Ни скажу!", blank = True)
-	age       = models.IntegerField(default = 18, blank = True)
-	wishes    = models.CharField(max_length = 100, default = "Все не почём!", blank = True)
+
+	telephone = models.CharField(max_length = 100,default = "Ни скажу!")
+	age       = models.IntegerField(default = 18)
+	wishes    = models.CharField(max_length = 100, default = "Все не почём!")
 
 	photo     = models.ImageField(upload_to = "images/", default = "images/user_default.jpg")
 
@@ -68,6 +69,7 @@ class Consumer(models.Model):
 class Entrepreneur(models.Model):
 	user      = models.OneToOneField(User)
 	status    = models.CharField(max_length = 50, choices = STATUS)
+
 	location  = models.ForeignKey('Location', null = True, blank = True)
 	address   = models.CharField(max_length = 100, blank = True)
 	price     = models.IntegerField(default = 0)
