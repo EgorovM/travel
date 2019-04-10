@@ -1,0 +1,152 @@
+{% load staticfiles %}
+
+{% include 'main/header.html' %}
+
+<h4>
+	{% if profile.user.email == "consumer@m.ru" %}
+		Путешественник
+	{% elif profile.user.email == "home@m.ru" %}
+		Арендатель
+	{% elif profile.user.email == "repair@m.ru" %}
+		Ремонт
+	{% else %}
+		Администрация
+	{% endif %}
+</h4>
+
+<form action = "." method = "post">
+	{% csrf_token %}
+
+	<div class="row form-group">
+		<div class = "col s12">
+			<p>Фамилия</p>
+		</div>
+
+		<div class="input-field col s12">
+			<input id="text" name = "first_name" type="text" class="validate" value="{{profile.user.first_name}}">
+		</div>
+	</div>
+
+
+	<div class="row form-group">
+		<div class = "col s12">
+			<p>Имя Отчество</p>
+		</div>
+
+		<div class="input-field col s12">
+			<input id="text" name = "last_name" type="text" class="validate" value="{{profile.user.last_name}}">
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class = "col s12">
+			<p > Контактная информация </p>
+		</div>
+
+		<div class="input-field col s12">
+			<input id="text" name = "telephone"  type="text" class="validate" value="{{profile.telephone}}">
+			<span class="helper-text">Как с вами можно связаться?</span>
+		</div>
+	</div>
+
+	{% if profile.user.email == "consumer@m.ru" %}
+		<div class = "row">
+			<div class = "col s12">
+				<p > Возраст </p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "age"  type="text" class="validate" value="{{profile.age}}">
+			</div>
+		</div>
+
+		<div class="row form-group">
+			<div class = "col s12">
+				<p>Предпочтения</p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "wishes" type="text" class="validate" value="{{profile.wishes}}">
+				<span class="helper-text">Например: не люблю, когда курят</span>
+			</div>
+		</div>
+	{% elif profile.user.email == "home@m.ru" or profile.user.email == "repair@m.ru" %}
+
+		<div class="row form-group">
+			<div class = "col s12">
+				<p>Закрепленный пункт</p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "location" type="text" class="validate" value="{{profile.location}}" disabled>
+			</div>
+		</div>
+
+		<div class="row form-group">
+			<div class = "col s12">
+				<p>Адрес</p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "address" type="text" class="validate" value="{{profile.address}}">
+			</div>
+		</div>
+
+		<div class="row form-group">
+			<div class = "col s12">
+				<p>Цена</p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "price" type="text" class="validate" value="{{profile.price}}">
+			</div>
+		</div>
+		
+		<div class="row form-group">
+			<div class = "col s12">
+				<p>Дополнительные услуги</p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "addition" type="text" class="validate" value="{{profile.addition}}">
+				<span class="helper-text">Например: телевизор, wi-fi</span>
+			</div>
+		</div>
+	{% else%}
+		<div class="row form-group">
+			<div class = "col s12">
+				<p>Закрепленный пункт</p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "location" type="text" class="validate" value="{{profile.location}}" disabled>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class = "col s12">
+				<p>Адрес администрации</p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "address" type="text" class="validate" value="{{profile.address}}">
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="row form-group">
+		<div class = "col s12">
+			<p>Обо мне</p>
+		</div>
+
+		<div class="input-field col s12">
+			<input id="text" name = "about" type="text" class="validate" value="{{profile.about}}">
+			<span class="helper-text">Расскажи о себе в 3 словах</span>
+		</div>
+	</div>
+
+	<div class="input-field col s12">
+		<input class="btn btn-large orange waves-effect white-text center" type = "submit" name = "save" value = "Сохранить изменения">
+	</div>
+</form>
+
+{% include 'main/footer.html' %}

@@ -1,0 +1,116 @@
+{% load staticfiles %}
+
+{% include 'main/header.html' %}
+
+<div class="section"></div>
+<div class = "row center">
+	<h5 class="blue-text"> Подтверждение личных данных </h5>
+	<span class="grey-text"> После того как вы подтвердите данные, вы не сможете их изменить! </span>
+
+	<form action = "." method="post">
+		<div class = "row">
+			<div class = "col s12">
+				<p > Фамилия </p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "first_name"  type="text" class="validate" value="{{profile.user.first_name}}">
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col s12">
+				<p > Имя Отчество </p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "last_name"  type="text" class="validate" value="{{profile.user.last_name}}">
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col s12">
+				<p > Пол </p>
+			</div>
+			<select name="sex">
+
+				{% if profile.sex %}
+					<option value="female"> Женщина </option>
+					<option value="male" selected> Мужчина </option>
+				{% else %}
+					<option value="female" selected> Женщина </option>
+					<option value="male"> Мужчина </option>
+				{% endif %}
+			</select>
+		</div>
+		<div class = "row">
+			<div class = "col s12">
+				<p > Дата рождения </p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "birthday"  type="text" class="validate datepicker" value="{{profile.birthday}}">
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col s12">
+				<p > Телефон </p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "telephone"  type="text" class="validate" value="{{profile.telephone}}">
+			</div>
+		</div>
+
+		<label style='float: left;'>
+			<a class='brown-text' href='#!'><b>Документ, удостоверяющий личность: паспорт</b></a>
+		</label>
+		<div class = "row">
+			<div class = "col s12">
+				<p > Серия </p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "passport_series"  type="text" class="validate" value="{{profile.passport_series}}">
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col s12">
+				<p > Номер </p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "passport_number"  type="text" class="validate" value="{{profile.passport_number}}">
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col s12">
+				<p > Код подразделения </p>
+			</div>
+
+			<div class="input-field col s12">
+				<input id="text" name = "unit_code"  type="text" class="validate" value="{{profile.unit_code}}">
+			</div>
+		</div>
+
+		<span style="float: left" class="pink-text" > Внимательно проверьте все введенные данные!</span>
+
+		<div class = "row">
+			<div class="input-field col s12">
+				<input id="text" name = "ok_btn"  type="submit" class="validate waves-effect btn orange" value="Подтвердить">
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	  $(document).ready(function(){
+	    $('.datepicker').datepicker();
+	  });
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
+
+{% include 'main/footer.html' %}

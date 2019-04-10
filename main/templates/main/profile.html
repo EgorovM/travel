@@ -1,0 +1,100 @@
+{% load staticfiles %}
+
+{% include 'main/header.html' %}
+
+		<div class = "row">
+			<div class = "col s12" style=" padding: 0 0;">
+				<div  style="background-size: cover;   background-image:  url(/media/images/profile_background.jpg); height: 150px; background-position: relative">
+					<div style="background-color: rgba(0,0,0,0.2); background-position: absolute;height: 150px;" >
+					</div>
+				</div>
+			</div>
+
+			<div class = "col s12" style=" padding: 0 0;">
+				<div class = "row">
+					<div class = "col s12" style="position: relative; height: 80px">
+						<div class = "avatar" style="background-image: url(/media/{{view_profile.photo}}); background-size: cover;background-position: center; position: absolute; height: 140px; width: 140px; z-index: 100; border-radius: 100%; border: 3px solid white; left: 120px; bottom: 20px"></div>
+					</div>
+				</div>
+
+				<div class = "row">
+					<div class = "col s12 white" style="border: 1px solid #757575; border-radius: 8px">
+						{% if view_profile.user.email != "consumer@m.ru" %}
+							{% if view_profile.checked %}
+								<p class = "center cicrle" ><i class="material-icons green-text" style="font-size: 3em;">check</i></p>
+							{% else %}
+								<p class = "center cicrle" ><i class="material-icons red-text" style="font-size: 3em;">close</i></p>
+							{% endif %}	
+						{% endif %}
+						
+						<h1 class = "center" style="font-size: 3em; font-weight: 500"> {{ view_profile.user.last_name }} </h1>
+
+						<p class = "center grey-text" style="font-size: 1em;"> 
+							{% if view_profile.user.email == "consumer@m.ru" %}
+								Путешественник
+							{% elif view_profile.user.email == "home@m.ru" %}
+								Арендатель
+							{% elif view_profile.user.email == "repair@m.ru" %}
+								Ремонт
+							{% else %}
+								Администрация
+							{% endif %}
+						</p>
+
+						<div class = "row">
+							<div class = "col s8">
+								{% if view_profile.user.email == "consumer@m.ru" %}
+									<p class="grey-text">Рейтинг:</p>
+									<p class="grey-text">Контактная информация:</p>
+									<p class="grey-text">Возраст:</p>
+									<p class="grey-text">Предпочтения:</p>
+								{% elif view_profile.user.email == "administrator@m.ru" %}
+									<p class="grey-text">Закрепленный пункт:</p>
+									<p class="grey-text">Улица:</p>
+									<p class="grey-text">Контактная информация:</p>
+								{% else %}
+									<p class="grey-text">Закрепленный пункт:</p>
+									<p class="grey-text">Адрес:</p>
+									<p class="grey-text">Контактная информация:</p>
+									<p class="grey-text">Дополнительные услуги:</p>
+								{% endif %}
+							</div>
+							<div class = "col s4">
+								{% if view_profile.user.email == "consumer@m.ru" %}
+									<p> {{view_profile.rate}} </p>
+									<p>{{view_profile.telephone}}</p>
+									<p>{{view_profile.age}}</p>
+									<p>{{view_profile.wishes}}</p>
+								{% elif view_profile.user.email == "administrator@m.ru" %}
+									<p>{{view_profile.location}}</p>
+									<p>{{view_profile.address}}</p>
+									<p>{{view_profile.telephone}}</p>
+								{% else %}
+									<p>{{view_profile.location}}</p>
+									<p>{{view_profile.address}}</p>
+									<p>{{view_profile.telephone}}</p>
+									<p>{{view_profile.addition}}</p>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<h5 class = "orange-text"> История посещений </h5>
+				
+				<div class = "row">
+					<div class = "col s12 white" style="border: 1px solid #757575; border-radius: 8px">
+						<br>
+						{% if view_profile.user.email == "consumer@m.ru" %}
+							
+						{% elif view_profile.user.email == "home@m.ru" or view_profile.user.email == "repair@m.ru" %}
+						
+						{% endif %}
+					</div>
+				</div>
+
+				<br>
+			</div>
+
+		</div>
+{% include 'main/footer.html' %}

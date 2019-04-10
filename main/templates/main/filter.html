@@ -1,0 +1,59 @@
+{% load staticfiles %}
+
+{% include 'main/header.html' %}
+
+
+<div class="section"></div>
+
+<div class = "row">
+    <center>
+
+		<img class="responsive-img" style="width: 250px;" src="" />
+
+		<div class="section"></div>
+		<h5> Фильтры </h5>
+		<div class="section"></div>
+		<form action="." method="post">
+			<div class = "col s10 offset-s1">
+				{% csrf_token %}
+
+				<select name = "location">
+					<option value="{{profile.user.filter.location}}" selected> {{profile.user.filter.location}}</option>
+					
+					{% for location in locations %}
+						<option value="{{location.location}}"> {{location.location}} </option>
+					{% endfor %}
+					
+				</select>
+				
+				<input value="{{profile.user.filter.price}}" name="price" type="text" class="validate" placeholder="Максимальная цена">
+
+				<label>
+					{% if profile.user.filter.home %} 
+					<input type="checkbox" class="filled-in" checked="checked" name = "home" /> {% else %}
+					<input type="checkbox" class="filled-in" name = "home" /> {% endif %}
+					<span>Дома</span>
+				</label>
+
+				<label>
+					{% if profile.user.filter.repair %} 
+					<input type="checkbox" class="filled-in" checked="checked" name = "repair" /> {% else %}
+					<input type="checkbox" class="filled-in" name = "repair" /> {% endif %}
+					<span>Ремонт</span>
+				</label>
+			</div>
+
+			<input class="btn btn-large orange waves-effect white-text" type = "submit" name = "search" value = "Найти">
+		
+		</form>
+		
+	</center>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
+
+{% include 'main/footer.html' %}
