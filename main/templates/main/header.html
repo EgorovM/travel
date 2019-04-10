@@ -62,11 +62,18 @@
                     </div></li>
                     
                     <li><a class = "waves-effect" href="/profile/{{profile.user.id}}"><i class="material-icons teal-text">groups</i>Мой профиль</a></li>
-                    <li><a class = "waves-effect" href="/notifications"><i class="material-icons teal-text">notifications</i>Уведомления</a></li>
+
+                    {% if profile.user.email != "consumer@m.ru" and profile.user.email != "repair@m.ru" %}
+                        <li><a class = "waves-effect" href="/notifications"><i class="material-icons teal-text">notifications</i>Уведомления</a></li>
+                    {% endif %}
                     <li><a class = "waves-effect" href="/settings"><i class="material-icons teal-text">settings</i>Редактировать</a></li>
                     
                     {% if profile.user.email != "consumer@m.ru" %}
-                        <li><a class = "waves-effect orange white-text" href="/confirm"><i class="material-icons white-text">security</i>Подтвердить личность!</a></li>
+                        {% if profile.checked %}
+                            <li><a class = "waves-effect green white-text " href="#"><i class="material-icons white-text">security</i>Личность подтверждена!</a></li>
+                        {% else %}
+                            <li><a class = "waves-effect orange white-text" href="/confirm"><i class="material-icons white-text">security</i>Подтвердить личность!</a></li>
+                        {% endif %}
                     {% endif %}
                     <li class="divider"></li>
                     <li><a class = "waves-effect" href="/logout"><i class="material-icons teal-text">exit_to_app</i>Выйти</a></li>

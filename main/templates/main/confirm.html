@@ -8,13 +8,14 @@
 	<span class="grey-text"> После того как вы подтвердите данные, вы не сможете их изменить! </span>
 
 	<form action = "." method="post">
+		{% csrf_token%}
 		<div class = "row">
 			<div class = "col s12">
 				<p > Фамилия </p>
 			</div>
 
 			<div class="input-field col s12">
-				<input id="text" name = "first_name"  type="text" class="validate" value="{{profile.user.first_name}}">
+				<input id="text" name = "first_name"  type="text" class="validate" value="{{profile.user.first_name}}" disabled>
 			</div>
 		</div>
 		<div class = "row">
@@ -23,7 +24,7 @@
 			</div>
 
 			<div class="input-field col s12">
-				<input id="text" name = "last_name"  type="text" class="validate" value="{{profile.user.last_name}}">
+				<input id="text" name = "last_name"  type="text" class="validate" value="{{profile.user.last_name}}" disabled>
 			</div>
 		</div>
 		<div class = "row">
@@ -56,7 +57,7 @@
 			</div>
 
 			<div class="input-field col s12">
-				<input id="text" name = "telephone"  type="text" class="validate" value="{{profile.telephone}}">
+				<input id="text" name = "telephone"  type="text" class="validate" value="{{profile.telephone}}" disabled>
 			</div>
 		</div>
 
@@ -95,7 +96,7 @@
 
 		<div class = "row">
 			<div class="input-field col s12">
-				<input id="text" name = "ok_btn"  type="submit" class="validate waves-effect btn orange" value="Подтвердить">
+				<input id="text" name = "ok_button"  type="submit" class="validate waves-effect btn orange" value="Подтвердить">
 			</div>
 		</div>
 	</form>

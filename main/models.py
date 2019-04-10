@@ -20,18 +20,19 @@ SEX = (
 	(True, "Мужчина"),
 )
 
-class Admin_Request(object):
-	administrator = models.ForeignKey('Administrator')
+class Admin_Request(models.Model):
+	administrator = models.OneToOneField('Administrator')
+	location      = models.ForeignKey('Location')
 
 	def __str__(self):
-		return self.administrator
+		return str(self.administrator)
 		
 class Entr_Request(models.Model):
-	administrator = models.ForeignKey('Administrator')
-	consumer = models.OneToOneField('Consumer')
+	entrepreneur  = models.OneToOneField('Entrepreneur', null = True)
+	administrator = models.ForeignKey('Administrator', null = True)
 
 	def __str__(self):
-		return str(self.consumer) + " " +str(self.location)
+		return str(self.entrepreneur) + " " +str(self.administrator)
 
 class Point(models.Model):
 	consumer     = models.ForeignKey('Consumer')
@@ -42,6 +43,13 @@ class Point(models.Model):
 	def __str__(self):
 		return str(self.consumer) + ' ' + str(self.entrepreneur)
 
+class Consumer_Request(models.Model):
+	consumer     = models.ForeignKey('Consumer')
+	entrepreneur = models.ForeignKey('Entrepreneur')
+
+	def __str__(self):
+		return str(self.consumer) + " " + str(self.entrepreneur)
+		
 class Filter(models.Model):
 	user = models.OneToOneField(User)
 
@@ -106,6 +114,7 @@ class Administrator(models.Model):
 	passport_series = models.CharField(max_length = 4)
 	passport_number = models.CharField(max_length = 6)
 	unit_code 		= models.CharField(max_length = 7)
+
 	def __str__(self):
 		return str(self.user)
 

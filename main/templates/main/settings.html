@@ -91,27 +91,28 @@
 				<input id="text" name = "address" type="text" class="validate" value="{{profile.address}}">
 			</div>
 		</div>
+		{% if profile.user.email == "home@m.ru" %}
+			<div class="row form-group">
+				<div class = "col s12">
+					<p>Цена</p>
+				</div>
 
-		<div class="row form-group">
-			<div class = "col s12">
-				<p>Цена</p>
+				<div class="input-field col s12">
+					<input id="text" name = "price" type="text" class="validate" value="{{profile.price}}">
+				</div>
 			</div>
+			
+			<div class="row form-group">
+				<div class = "col s12">
+					<p>Дополнительные услуги</p>
+				</div>
 
-			<div class="input-field col s12">
-				<input id="text" name = "price" type="text" class="validate" value="{{profile.price}}">
+				<div class="input-field col s12">
+					<input id="text" name = "addition" type="text" class="validate" value="{{profile.addition}}">
+					<span class="helper-text">Например: телевизор, wi-fi</span>
+				</div>
 			</div>
-		</div>
-		
-		<div class="row form-group">
-			<div class = "col s12">
-				<p>Дополнительные услуги</p>
-			</div>
-
-			<div class="input-field col s12">
-				<input id="text" name = "addition" type="text" class="validate" value="{{profile.addition}}">
-				<span class="helper-text">Например: телевизор, wi-fi</span>
-			</div>
-		</div>
+		{% endif %}
 	{% else%}
 		<div class="row form-group">
 			<div class = "col s12">

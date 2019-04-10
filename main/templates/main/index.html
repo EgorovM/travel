@@ -41,30 +41,32 @@
 
 		
 		{% for entrepreneur in entrepreneurs %}
-			<div class="row">
-				<div class="card">
-					<div class="card-image">
-					<img src="media/{{entrepreneur.photo}}" class="responsive-img">
-					<div class="card-title black white-text" style="opacity: 0.5; width: 100%; height: 32px; line-height: 0px ">{{entrepreneur.price}} рублей</div>
-					{% if entrepreneur.checked %}
-						<a class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">check</i></a>
-					{% else %}
-						<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">close</i></a>
-					{% endif %}
-					</div>
+			<a href = "profile/{{entrepreneur.user.id}}">
+				<div class="row">
+					<div class="card">
+						<div class="card-image">
+						<img src="media/{{entrepreneur.photo}}" class="responsive-img">
+						{% if entrepreneur.user.email == "home@m.ru"%}
+							<div class="card-title black white-text" style="opacity: 0.5; width: 100%; height: 32px; line-height: 0px ">{{entrepreneur.price}} рублей</div>
+						{% endif %}
+						{% if entrepreneur.checked %}
+							<a class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">check</i></a>
+						{% else %}
+							<a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">close</i></a>
+						{% endif %}
+						</div>
 
-					<div class="card-content">
-						<div class = "row">
-							<div class = "col s12">
-								<p>{{entrepreneur.addition}}</p>
-								<p class="blue-text">{{entrepreneur.location}}, {{entrepreneur.address}}</p>
-
-								<a href = "profile/{{entrepreneur.user.id}}" class="btn green right">Подробнее</a>
+						<div class="card-content">
+							<div class = "row">
+								<div class = "col s12">
+									<p>{{entrepreneur.addition}}</p>
+									<p class="blue-text">{{entrepreneur.location}}, {{entrepreneur.address}}</p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</a>
 		{% endfor %}
 	{% endif %}
 

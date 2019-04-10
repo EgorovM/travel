@@ -12,19 +12,21 @@
 				<div class = 'row'>
 					<div class="col s12">
 						<select name = "status">
-					    	<option value="consumer" selected>Хочу начать путешествовать!</option>
-					    	<option value="home" >Желаю начать сдавать дом!</option>
-					    	<option value="repair" >У меня есть свой ремонтный центр!</option>
+					    	<option onclick="unAdmin()" value="consumer" selected>Хочу начать путешествовать!</option>
+					    	<option onclick="unAdmin()" value="home" >Желаю начать сдавать дом!</option>
+					    	<option onclick="unAdmin()" value="repair" >У меня есть свой ремонтный центр!</option>
 					    	<option value="administrator">Я администратор.</option>
 					    </select>
 				    </div>
 				</div>
 
-				<div class='input-field col s12' style="display: none">
-					<input class='validate' type='text' name='location' placeholder="Закрепленный пункт" />
+				<div class = 'row'>
+					<div class='input-field col s12 any_location' style="display: none;">
+						<input class='validate' type='text' name='location' placeholder="Закрепленный пункт"  />
+					</div>
 				</div>
 
-				<div class = 'row'>
+				<div class = 'row choice_location'>
 					<div class="col s12">
 						<select name = "location">
 					    	<option value="" disabled selected>Откуда вы?</option>
@@ -59,9 +61,21 @@
 </div>
 
 <script type="text/javascript">
+	function unAdmin(){
+		$(".any_location").hide();
+		$(".choice_location").css("display", "block");
+		console.log("asd")
+	}
+
+	function Admin(){
+		$(".any_location").css("display", "block");
+		$(".choice_location").hide();
+	}
+</script>
+
+<script type="text/javascript">
 	$(document).ready(function(){
     $('select').formSelect();
   });
 </script>
-
 {% include 'main/footer.html' %}

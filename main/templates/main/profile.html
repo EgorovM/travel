@@ -80,21 +80,33 @@
 					</div>
 				</div>
 
-				<h5 class = "orange-text"> История посещений </h5>
-				
-				<div class = "row">
-					<div class = "col s12 white" style="border: 1px solid #757575; border-radius: 8px">
-						<br>
-						{% if view_profile.user.email == "consumer@m.ru" %}
+				{% if view_profile.user.email != "repair@m.ru" and view_profile.user.email != "administrator@m.ru" %}
+
+					<h5 class = "orange-text"> История посещений </h5>
+					
+					<div class = "row">
+						<div class = "col s12 white" style="border: 1px solid #757575; border-radius: 8px">
+							<br>
+							{% if view_profile.user.email == "consumer@m.ru" %}
+								
+							{% elif view_profile.user.email == "home@m.ru" %}
 							
-						{% elif view_profile.user.email == "home@m.ru" or view_profile.user.email == "repair@m.ru" %}
-						
-						{% endif %}
+							{% endif %}
+						</div>
 					</div>
-				</div>
 
-				<br>
+					<br>
+
+					{% if view_profile.user.email == "home@m.ru" and profile.user.email == "consumer@m.ru" %}
+						<center>
+						<span> Если вам понравился {{view_profile.last_name}}, то попробуйте связаться или кинуть заявку!</span>
+						<form action="." method="post">
+							{% csrf_token %}
+							<input class="btn green waves-effect white-text" type = "submit" name = "request" value = "Запрос!">
+						</form>
+						</center>
+					{% endif %}
+				{% endif %}
 			</div>
-
 		</div>
 {% include 'main/footer.html' %}

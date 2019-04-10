@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts 			import render, HttpResponseRedirect, redirect, HttpResponse
-from .models					import Consumer, Entrepreneur, Administrator, Location, Point, Filter
+from .models					import Consumer, Entrepreneur, Administrator, Location, Point, Filter, Admin_Request, Entr_Request, Consumer_Request
 from django.db 					import IntegrityError
 from django.core.paginator 		import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
@@ -148,6 +148,9 @@ def register(request):
 					location = Location.objects.get(location = request.POST["location"])
 					profile.location = location
 					profile.status = status
+
+					if status == "repair":
+						profile.photo = "images/repair_default.jpg"
 				else:
 					user.email = "administrator@m.ru"
 					profile = Administrator(user = user)
@@ -190,8 +193,9 @@ def settings(request):
 
 			if "home" in status or "repair" in status:
 				profile.address  = request.POST["address"]
-				profile.price    = request.POST["price"]
-				profile.addition = request.POST["addition"]
+				if "home" in status:
+					profile.price    = request.POST["price"]
+					profile.addition = request.POST["addition"]
 			elif "consumer" in status:
 				profile.age    = request.POST["age"]
 				profile.wishes = request.POST["wishes"]
@@ -215,10 +219,16 @@ def profile(request, user_id):
 	context = {}
 	view_user = User.objects.get(id = user_id)
 	view_profile = get_correct_profile(view_user)
-
 	context["view_profile"] = view_profile
-	context["profile"] = get_correct_profile(user = request.user)
 
+	profile = get_correct_profile(user = request.user)
+	context["profile"] = profile
+
+	if request.method == "POST":
+		if "request" in request.POST:
+			Consumer_Request.objects.create(consumer = profile, entrepreneur = view_profile)
+
+			context["message"] = "Заявка кинута! Ожидайте ответа :)"
 	request = render(request, 'main/profile.html', context)
 	return request
 
@@ -227,12 +237,55 @@ def confirm(request):
 		return HttpResponseRedirect("/login")
 
 	context = {}
-	context["profile"] = get_correct_profile(request.user)
+	profile = get_correct_profile(request.user)
+	context["profile"] = profile
 
+	if request.method == "POST":
+		if "ok_button" in request.POST:
+			profile.passport_series    = request.POST["passport_series"]
+			profile.passport_number    = request.POST["passport_number"]
+			profile.unit_code = request.POST["unit_code"]
+
+			if profile.user.email == "administrator@m.ru":
+				Admin_Request.objects.create(administrator = profile, location = profile.location)
+			else:
+				requ = Entr_Request(entrepreneur = profile)
+				requ.administrator = Administrator.objects.get(location = profile.location)
+				
+				requ.save()
+
+			profile.save()
+
+			context["message"] = "Успешно! Ожидайте ответа"
+			request = render(request, 'main/index.html', context)
+			return request
 	request = render(request, 'main/confirm.html', context)
 
 	return request
-	
+
+def notifications(request):
+	context = {}
+	profile = get_correct_profile(request.user)
+
+	if request.method == "POST":
+		if "send" in request.POST:
+			entr_id = request.POST["send"]
+			Entr = Entr_Request.objects.get(id = entr_id)
+			Entr.entrepreneur.checked = True
+			Entr.entrepreneur.save()
+			Entr.delete()
+
+			context["message"] = "Успешно"
+	context["profile"] = profile
+
+	if profile.user.email == "administrator@m.ru":
+		context["requests"] = Entr_Request.objects.filter(administrator = profile)
+	else:
+		context["requests"] = Consumer_Request.objects.filter(entrepreneur = profile)
+
+	request = render(request, 'main/notifications.html', context)
+	return request
+
 def logout_view(request):
 
     logout(request)

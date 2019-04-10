@@ -17,7 +17,9 @@
 			<div class = "col s10 offset-s1">
 				{% csrf_token %}
 
-				<select name = "location">
+
+				<label for="location">Населенный пункт и максимальная цена</label>
+				<select id="location" name = "location">
 					<option value="{{profile.user.filter.location}}" selected> {{profile.user.filter.location}}</option>
 					
 					{% for location in locations %}
@@ -26,21 +28,27 @@
 					
 				</select>
 				
-				<input value="{{profile.user.filter.price}}" name="price" type="text" class="validate" placeholder="Максимальная цена">
+				<label for="price">Максимальная цена</label>
+				<input id="price"value="{{profile.user.filter.price}}" name="price" type="text" class="validate" placeholder="Максимальная цена">
 
-				<label>
-					{% if profile.user.filter.home %} 
-					<input type="checkbox" class="filled-in" checked="checked" name = "home" /> {% else %}
-					<input type="checkbox" class="filled-in" name = "home" /> {% endif %}
-					<span>Дома</span>
-				</label>
-
-				<label>
-					{% if profile.user.filter.repair %} 
-					<input type="checkbox" class="filled-in" checked="checked" name = "repair" /> {% else %}
-					<input type="checkbox" class="filled-in" name = "repair" /> {% endif %}
-					<span>Ремонт</span>
-				</label>
+				<p>
+					<div class = "row">
+						<label>
+							{% if profile.user.filter.home %} 
+							<input type="checkbox" class="filled-in" checked="checked" name = "home" /> {% else %}
+							<input type="checkbox" class="filled-in" name = "home" /> {% endif %}
+							<span>Дома</span>
+						</label>
+					</div>
+					<div class = "row">
+						<label>
+							{% if profile.user.filter.repair %} 
+							<input type="checkbox" class="filled-in" checked="checked" name = "repair" /> {% else %}
+							<input type="checkbox" class="filled-in" name = "repair" /> {% endif %}
+							<span>Ремонт</span>
+						</label>
+					</div>
+				</p>
 			</div>
 
 			<input class="btn btn-large orange waves-effect white-text" type = "submit" name = "search" value = "Найти">
