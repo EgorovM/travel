@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts 			import render, HttpResponseRedirect, redirect, HttpResponse
 from .models					import Consumer, Entrepreneur, Administrator, Location, Point, Filter
-from .models					import Admin_Request, Entr_Request, Consumer_Request, Resident
+from .models					import Admin_Request, Entr_Request, Consumer_Request, Resident, Ar_History
 from django.db 					import IntegrityError
 from django.core.paginator 		import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
@@ -52,7 +52,7 @@ def index(request):
 	context = {}
 	profile = get_correct_profile(request.user)
 
-	if profile.filter.location == "all":
+	if profile.user.filter.location == "all":
 		context["entrepreneurs"] = Entrepreneur.objects.all(profile)
 		context["amount"] = len(context["entrepreneurs"])
 	elif len(correct_filter(profile)) != 0:
@@ -227,6 +227,11 @@ def profile(request, user_id):
 	profile = get_correct_profile(user = request.user)
 	context["profile"] = profile
 
+	if profile.user.email == "home@m.ru":
+		context["history"] = Ar_History.objects.filter(ar = profile)
+	elif profile.user.email == "consumer@m.ru":
+		context["history"] = Ar_History.objects.filter(co = profile)
+
 	if request.method == "POST":
 		if "request" in request.POST:
 			Consumer_Request.objects.create(consumer = profile, entrepreneur = view_profile)
@@ -312,6 +317,8 @@ def residents(request):
 			resident_id = request.POST["confirm"]
 			Res = Resident.objects.get(id = resident_id)
 			Res.resident.rate_int += 1
+
+			Ar_History.objects.create(ar = profile,co = Res.resident, date = datetime.now())
 
 			if Res.resident.rate_int >= 3:
 				Res.resident.rate = "Бывалый"
