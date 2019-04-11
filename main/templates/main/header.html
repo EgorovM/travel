@@ -66,6 +66,11 @@
                     {% if profile.user.email != "consumer@m.ru" and profile.user.email != "repair@m.ru" %}
                         <li><a class = "waves-effect" href="/notifications"><i class="material-icons teal-text">notifications</i>Уведомления</a></li>
                     {% endif %}
+
+                    {% if profile.user.email == "home@m.ru" %}
+                        <li><a class = "waves-effect" href="/residents"><i class="material-icons teal-text">notifications</i>Жители</a></li>
+                    {% endif %}
+
                     <li><a class = "waves-effect" href="/settings"><i class="material-icons teal-text">settings</i>Редактировать</a></li>
                     
                     {% if profile.user.email != "consumer@m.ru" %}

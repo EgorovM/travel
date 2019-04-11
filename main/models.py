@@ -50,6 +50,13 @@ class Consumer_Request(models.Model):
 	def __str__(self):
 		return str(self.consumer) + " " + str(self.entrepreneur)
 		
+class Resident(models.Model):
+	resident = models.OneToOneField('Consumer', on_delete=models.CASCADE)
+	tenant   = models.ForeignKey('Entrepreneur', on_delete=models.CASCADE)
+
+	def __str__(self):
+		return str(self.resident) + " " + str(self.tenant)
+
 class Filter(models.Model):
 	user = models.OneToOneField(User,on_delete=models.CASCADE)
 
@@ -63,8 +70,8 @@ class Filter(models.Model):
 
 class Consumer(models.Model):
 	user      = models.OneToOneField(User,on_delete=models.CASCADE)
-	rate      = models.CharField(max_length = 50,default = "Beginner", choices = RATE)
-
+	rate_name = models.CharField(max_length = 50,default = "Beginner", choices = RATE)
+	rate_int  = models.IntegerField(default = 0)
 	telephone = models.CharField(max_length = 100,default = "Ни скажу!")
 	age       = models.IntegerField(default = 18)
 	wishes    = models.CharField(max_length = 100, default = "Все не почём!")

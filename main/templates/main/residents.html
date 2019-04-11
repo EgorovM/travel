@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+{% include 'main/header.html' %}
+
+	<ul class="collection with-header">
+		
+	    <li class="collection-header"><h4>Запросы на подтверждение</h4></li>
+	    
+
+	    {% for consumer in consumers %}
+	        <li class="collection-item avatar">
+			<img src="/media/{{consumer.entrepreneur.photo}}" alt="" class="circle">
+			<span class="title"><a href="/profile/{{consumer.entrepreneur.user.id}}">{{consumer.entrepreneur}}</a></span>
+			<p>
+				{{consumer.entrepreneur.telephone}}<br>
+				{{consumer.entrepreneur.passport_series}} {{consumer.entrepreneur.passport_number}} {{consumer.entrepreneur.unit_code}}<br>
+			</p>
+			<div class="secondary-content">
+		        <form action="." method="post">
+		        	{% csrf_token %}
+	        		<div class = "input-field">
+		        		<button type="submit" id="completed-task" class="fabutton teal-text white" name="confirm" value="{{consumer.id}}">
+						      <i class="material-icons right">send</i>
+						</button>
+		        	</div>
+			  	</form>
+		  	</div>
+		    </li>
+        {% endfor %}
+
+    </ul>
+
+{% include 'main/footer.html' %}
