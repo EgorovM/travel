@@ -21,22 +21,22 @@ SEX = (
 )
 
 class Admin_Request(models.Model):
-	administrator = models.OneToOneField('Administrator')
-	location      = models.ForeignKey('Location')
+	administrator = models.OneToOneField('Administrator',on_delete=models.CASCADE)
+	location      = models.ForeignKey('Location',on_delete=models.CASCADE)
 
 	def __str__(self):
 		return str(self.administrator)
 		
 class Entr_Request(models.Model):
-	entrepreneur  = models.OneToOneField('Entrepreneur', null = True)
-	administrator = models.ForeignKey('Administrator', null = True)
+	entrepreneur  = models.OneToOneField('Entrepreneur', null = True,on_delete=models.CASCADE)
+	administrator = models.ForeignKey('Administrator', null = True,on_delete=models.CASCADE)
 
 	def __str__(self):
 		return str(self.entrepreneur) + " " +str(self.administrator)
 
 class Point(models.Model):
-	consumer     = models.ForeignKey('Consumer')
-	entrepreneur = models.ForeignKey('Entrepreneur')
+	consumer     = models.ForeignKey('Consumer',on_delete=models.CASCADE)
+	entrepreneur = models.ForeignKey('Entrepreneur',on_delete=models.CASCADE)
 	point        = models.IntegerField(default = 0)
 	date         = models.DateField(default = timezone.now())
 
@@ -44,14 +44,14 @@ class Point(models.Model):
 		return str(self.consumer) + ' ' + str(self.entrepreneur)
 
 class Consumer_Request(models.Model):
-	consumer     = models.ForeignKey('Consumer')
-	entrepreneur = models.ForeignKey('Entrepreneur')
+	consumer     = models.ForeignKey('Consumer',on_delete=models.CASCADE)
+	entrepreneur = models.ForeignKey('Entrepreneur',on_delete=models.CASCADE)
 
 	def __str__(self):
 		return str(self.consumer) + " " + str(self.entrepreneur)
 		
 class Filter(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User,on_delete=models.CASCADE)
 
 	price    = models.IntegerField(default = 0)
 	repair   = models.BooleanField(default = False)
@@ -62,7 +62,7 @@ class Filter(models.Model):
 		return str(self.user) + " filters"
 
 class Consumer(models.Model):
-	user      = models.OneToOneField(User)
+	user      = models.OneToOneField(User,on_delete=models.CASCADE)
 	rate      = models.CharField(max_length = 50,default = "Beginner", choices = RATE)
 
 	telephone = models.CharField(max_length = 100,default = "Ни скажу!")
@@ -75,10 +75,10 @@ class Consumer(models.Model):
 		return str(self.user)
 
 class Entrepreneur(models.Model):
-	user      = models.OneToOneField(User)
+	user      = models.OneToOneField(User,on_delete=models.CASCADE)
 	status    = models.CharField(max_length = 50, choices = STATUS)
 
-	location  = models.ForeignKey('Location', null = True, blank = True)
+	location  = models.ForeignKey('Location', null = True, blank = True,on_delete=models.CASCADE)
 	address   = models.CharField(max_length = 100, blank = True)
 	price     = models.IntegerField(default = 0)
 	telephone = models.CharField(max_length = 100, blank = True)
@@ -99,9 +99,9 @@ class Entrepreneur(models.Model):
 		return str(self.user)
 
 class Administrator(models.Model):
-	user      = models.OneToOneField(User)
+	user      = models.OneToOneField(User,on_delete=models.CASCADE)
 	checked   = models.BooleanField(default = False)
-	location  = models.ForeignKey('Location')
+	location  = models.ForeignKey('Location',on_delete=models.CASCADE)
 	about     = models.CharField(max_length = 500, default = "Администрация")
 	telephone = models.CharField(max_length = 100, default = "Не скажу :)")
 	address   = models.CharField(max_length = 100, default = "")
