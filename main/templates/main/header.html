@@ -25,11 +25,11 @@
     <body style="">
         <header>
                 <div class = "main-navbar navbar-fixed">
-                    <nav>                    
+                    <nav>
                         <div class="nav-wrapper orange" style="position: relative;">
                             <a href="/filter" class="brand-logo">&nbsp;ChillWay</a>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                                
+
                                     <li><a class="dropdown-button" href="#!" data-activates="dropdown1" data-beloworigin="true" style="min-width: 150px;">{{ profile.name }} <i class="material-icons right"> arrow_drop_down </i></a></li>
                             </ul>
 
@@ -43,7 +43,7 @@
                 <ul id="slide-out" class="sidenav">
                     <li><div class="user-view">
                         <div class="background" style="background-color: orange">
-                            
+
                         </div>
                         <a href="#user"><img class="circle" src="/media/{{profile.photo}}" style="background: white"></a>
                         <a href="#name"><span class="white-text name">{{profile.user.first_name}} {{profile.user.last_name}}</span></a>
@@ -58,9 +58,9 @@
                                 Администрация
                             {% endif %}
                         </span>
-                        
+
                     </div></li>
-                    
+
                     <li><a class = "waves-effect" href="/profile/{{profile.user.id}}"><i class="material-icons teal-text">groups</i>Мой профиль</a></li>
 
                     {% if profile.user.email != "consumer@m.ru" and profile.user.email != "repair@m.ru" %}
@@ -68,11 +68,11 @@
                     {% endif %}
 
                     {% if profile.user.email == "home@m.ru" %}
-                        <li><a class = "waves-effect" href="/residents"><i class="material-icons teal-text">notifications</i>Жители</a></li>
+                        <li><a class = "waves-effect" href="/residents"><i class="material-icons teal-text">home</i>Жители</a></li>
                     {% endif %}
 
                     <li><a class = "waves-effect" href="/settings"><i class="material-icons teal-text">settings</i>Редактировать</a></li>
-                    
+
                     {% if profile.user.email != "consumer@m.ru" %}
                         {% if profile.checked %}
                             <li><a class = "waves-effect green white-text " href="#"><i class="material-icons white-text">security</i>Личность подтверждена!</a></li>
