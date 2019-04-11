@@ -44,6 +44,7 @@
 						<div class = "row">
 							<div class = "col s8">
 								{% if view_profile.user.email == "consumer@m.ru" %}
+									<p class="grey-text">Посетил:</p>
 									<p class="grey-text">Рейтинг:</p>
 									<p class="grey-text">Контактная информация:</p>
 									<p class="grey-text">Возраст:</p>
@@ -61,7 +62,8 @@
 							</div>
 							<div class = "col s4">
 								{% if view_profile.user.email == "consumer@m.ru" %}
-									<p> {{view_profile.rate}} </p>
+									<p> {{view_profile.rate_int}} домов!</p>
+									<p> {{view_profile.rate_name}} </p>
 									<p>{{view_profile.telephone}}</p>
 									<p>{{view_profile.age}}</p>
 									<p>{{view_profile.wishes}}</p>
@@ -99,7 +101,7 @@
 
 					{% if view_profile.user.email == "home@m.ru" and profile.user.email == "consumer@m.ru" %}
 						<center>
-						<span> Если вам понравился {{view_profile.last_name}}, то попробуйте связаться или кинуть заявку!</span>
+						<span> Если вам понравился {{view_profile.user.last_name}}, то попробуйте связаться или кинуть заявку!</span>
 						<form action="." method="post">
 							{% csrf_token %}
 							<input class="btn green waves-effect white-text" type = "submit" name = "request" value = "Запрос!">
