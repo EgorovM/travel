@@ -20,7 +20,7 @@
 			        <form action="." method="post">
 			        	{% csrf_token %}
 		        		<div class = "input-field">
-			        		<button type="submit" id="completed-task" class="fabutton teal-text white" name="send" value="{{request.id}}">
+			        		<button type="submit" id="completed-task" class="fabutton teal-text white" name="confirm" value="{{request.id}}">
 							      <i class="material-icons right">send</i>
 							</button>
 			        	</div>
@@ -41,7 +41,7 @@
 			        <form action="." method="post">
 			        	{% csrf_token %}
 		        		<div class = "input-field">
-			        		<button type="submit" id="completed-task" class="fabutton teal-text white" name="send" value="{{request.id}}">
+			        		<button type="submit" id="completed-task" class="fabutton teal-text white" name="ok" value="{{request.id}}">
 							      <i class="material-icons right">send</i>
 							</button>
 			        	</div>

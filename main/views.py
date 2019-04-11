@@ -3,7 +3,8 @@ import os
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts 			import render, HttpResponseRedirect, redirect, HttpResponse
-from .models					import Consumer, Entrepreneur, Administrator, Location, Point, Filter, Admin_Request, Entr_Request, Consumer_Request
+from .models					import Consumer, Entrepreneur, Administrator, Location, Point, Filter
+from .models					import Admin_Request, Entr_Request, Consumer_Request, Resident
 from django.db 					import IntegrityError
 from django.core.paginator 		import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
@@ -265,14 +266,20 @@ def notifications(request):
 	profile = get_correct_profile(request.user)
 
 	if request.method == "POST":
-		if "send" in request.POST:
-			entr_id = request.POST["send"]
+		if "confirm" in request.POST:
+			entr_id = request.POST["comfirm"]
 			Entr = Entr_Request.objects.get(id = entr_id)
 			Entr.entrepreneur.checked = True
 			Entr.entrepreneur.save()
 			Entr.delete()
 
 			context["message"] = "Успешно"
+		elif "ok" in request.POST:
+			cons_id = request.POST["ok"]
+			Cons = Consumer_Request.objects.get(id = cons_id)
+			Resident.objects.create(resident = Cons.consumer, tenant = Cons.entrepreneur)
+			Cons.delele()
+
 	context["profile"] = profile
 
 	if profile.user.email == "administrator@m.ru":
@@ -283,8 +290,18 @@ def notifications(request):
 	request = render(request, 'main/notifications.html', context)
 	return request
 
-def logout_view(request):
+def residents(request):
+	context = {}
 
+	profile = get_correct_profile(request.user)
+
+	context["profile"] = profile
+	context["consumers"] = Resident.objects.filter(tenant = profile)
+
+	request = render(request, 'main/residents.html', context)
+	return request
+
+def logout_view(request):
     logout(request)
 
     return HttpResponseRedirect('/login')
