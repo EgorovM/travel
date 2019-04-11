@@ -82,12 +82,12 @@ def filter(request):
 				profile.user.filter.home = True
 			else:
 				profile.user.filter.home = False
-			
+
 			if request.POST.get("repair") == "on":
 				profile.user.filter.repair = True
 			else:
 				profile.user.filter.repair = False
-			
+
 			profile.user.filter.save()
 
 			return HttpResponseRedirect("/")
@@ -116,7 +116,7 @@ def login(request):
 					context["message"] = "Такого пользователя не существует"
 			else:
 				context["message"] = "Заполните все поля, пожалуйста"
-		
+
 
 
 	request = render(request, 'main/login.html', context)
@@ -169,7 +169,7 @@ def register(request):
 
 				if user is not None and user.is_active:
 					auth.login(request, user)
-					return HttpResponseRedirect("/settings")
+					return HttpResponseRedirect("/filter")
 			else:
 				context['message'] = 'Заполните все поля, пожалуйста'
 
@@ -209,7 +209,7 @@ def settings(request):
 
 			context["message"] = "Данные изменены!"
 
-	context["profile"] = profile 
+	context["profile"] = profile
 
 	request = render(request, 'main/settings.html', context)
 
@@ -254,7 +254,7 @@ def confirm(request):
 			else:
 				requ = Entr_Request(entrepreneur = profile)
 				requ.administrator = Administrator.objects.get(location = profile.location)
-				
+
 				requ.save()
 
 			profile.save()
@@ -334,7 +334,7 @@ def about(request):
 	return request
 
 def get_apk(request):
-	excel_file_name = "ChillWay.apk"
+	excel_file_name = "/home/EgorovM/travel/ChillWay.apk"
 
 	fp = open(excel_file_name, "rb");
 	response = HttpResponse(fp.read());
