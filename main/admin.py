@@ -1,9 +1,11 @@
 from django.contrib import admin
 
-from .models import Consumer, Entrepreneur, Administrator, Location, Point, Filter, Entr_Request, Admin_Request
+from .models import Consumer, Entrepreneur, Administrator, Location, Point, Filter, Entr_Request, Admin_Request,Consumer_Request,Resident
 
 admin.site.register(Entr_Request)
 admin.site.register(Admin_Request)
+admin.site.register(Consumer_Request)
+admin.site.register(Resident)
 admin.site.register(Filter)
 admin.site.register(Point)
 admin.site.register(Consumer)

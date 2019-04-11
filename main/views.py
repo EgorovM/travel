@@ -267,18 +267,22 @@ def notifications(request):
 
 	if request.method == "POST":
 		if "confirm" in request.POST:
-			entr_id = request.POST["comfirm"]
+			entr_id = request.POST["confirm"]
 			Entr = Entr_Request.objects.get(id = entr_id)
 			Entr.entrepreneur.checked = True
 			Entr.entrepreneur.save()
 			Entr.delete()
 
 			context["message"] = "Успешно"
+
 		elif "ok" in request.POST:
 			cons_id = request.POST["ok"]
 			Cons = Consumer_Request.objects.get(id = cons_id)
 			Resident.objects.create(resident = Cons.consumer, tenant = Cons.entrepreneur)
-			Cons.delele()
+			Cons.save()
+			Cons.delete()
+
+			context["message"] = "Успешно"
 
 	context["profile"] = profile
 
@@ -297,6 +301,22 @@ def residents(request):
 
 	context["profile"] = profile
 	context["consumers"] = Resident.objects.filter(tenant = profile)
+
+	if request.method == "POST":
+		if "confirm" in request.POST:
+			resident_id = request.POST["confirm"]
+			Res = Resident.objects.get(id = resident_id)
+			Res.resident.rate_int += 1
+
+			if Res.resident.rate_int >= 3:
+				Res.resident.rate = "Бывалый"
+			elif Res.resident.rate_int >= 2:
+				Res.resident.rate_name = "Опытный"
+
+			Res.resident.save()
+			Res.delete()
+			
+			context["message"] = str(Res.resident.user.last_name) + " вышел!"
 
 	request = render(request, 'main/residents.html', context)
 	return request
