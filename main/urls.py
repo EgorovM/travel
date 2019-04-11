@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^notifications/$', views.notifications, name = 'index'),
     url(r'^residents/$', views.residents, name = 'index'),
     url(r'^about/$', 		 views.about, name = 'index'),
+    url(r'^get_apk/$', views.get_apk, name="index"),
     url(r'^profile/(?P<user_id>[0-9]+)/$', views.profile, name = 'index'),
 
     # url(r'^(?P<order_id>[0-9]+)/$', views.order, name='order'),

@@ -16,6 +16,7 @@ from pytz 						import timezone
 from datetime 					import datetime, timedelta
 from django.http 				import JsonResponse
 import json
+import mimetypes
 import pytz
 import os
 
@@ -327,6 +328,25 @@ def about(request):
 
 	request = render(request, 'main/about.html', context)
 	return request
+
+def get_apk(request):
+	excel_file_name = "ChillWay.apk"
+
+	fp = open(excel_file_name, "rb");
+	response = HttpResponse(fp.read());
+	fp.close();
+
+	file_type = mimetypes.guess_type(excel_file_name);
+
+	if file_type is None:
+	    file_type = 'application/octet-stream';
+
+	response['Content-Type'] = file_type
+	response['Content-Length'] = str(os.stat(excel_file_name).st_size);
+	response['Content-Disposition'] = "attachment; filename=ChillWay.apk";
+
+	return response;
+
 def logout_view(request):
     logout(request)
 
