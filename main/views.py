@@ -315,12 +315,18 @@ def residents(request):
 
 			Res.resident.save()
 			Res.delete()
-			
+
 			context["message"] = str(Res.resident.user.last_name) + " вышел!"
 
 	request = render(request, 'main/residents.html', context)
 	return request
 
+
+def about(request):
+	context = {}
+
+	request = render(request, 'main/about.html', context)
+	return request
 def logout_view(request):
     logout(request)
 
