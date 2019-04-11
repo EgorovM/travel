@@ -56,7 +56,7 @@ class Filter(models.Model):
 	price    = models.IntegerField(default = 0)
 	repair   = models.BooleanField(default = False)
 	home     = models.BooleanField(default = False)
-	location = models.ForeignKey('Location', null = True, blank = True)
+	location = models.ForeignKey('Location', null = True, blank = True, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return str(self.user) + " filters"
