@@ -27,6 +27,14 @@ class Admin_Request(models.Model):
 	def __str__(self):
 		return str(self.administrator)
 		
+class Ar_History(models.Model):
+	ar = models.ForeignKey("Entrepreneur")
+	co = models.ForeignKey("Consumer")
+	date = models.DateField()
+
+	def __str__(self):
+		return
+
 class Entr_Request(models.Model):
 	entrepreneur  = models.OneToOneField('Entrepreneur', null = True,on_delete=models.CASCADE)
 	administrator = models.ForeignKey('Administrator', null = True,on_delete=models.CASCADE)

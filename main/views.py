@@ -52,9 +52,13 @@ def index(request):
 	context = {}
 	profile = get_correct_profile(request.user)
 
-	if len(correct_filter(profile)) != 0:
+	if profile.filter.location == "all":
+		context["entrepreneurs"] = Entrepreneur.objects.all(profile)
+		context["amount"] = len(context["entrepreneurs"])
+	elif len(correct_filter(profile)) != 0:
 		context["entrepreneurs"] = correct_filter(profile)
 		context["amount"] = len(context["entrepreneurs"])
+		
 	context["locations"]     = Location.objects.all()
 	context["profile"] = profile
 

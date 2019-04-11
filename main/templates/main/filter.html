@@ -20,7 +20,7 @@
 
 				<label for="location">Населенный пункт и максимальная цена</label>
 				<select id="location" name = "location">
-					<option value="{{profile.user.filter.location}}" selected> {{profile.user.filter.location}}</option>
+					<option value="all" selected> Посмотреть всё </option>
 					
 					{% for location in locations %}
 						<option value="{{location.location}}"> {{location.location}} </option>
