@@ -14,12 +14,9 @@ from PIL      					import Image
 from pytz 						import timezone
 from datetime 					import datetime, timedelta
 from django.http 				import JsonResponse
-import pandas as pd
-import sqlite3
 import json
 import pytz
 import os
-import qrcode
 
 def get_correct_profile(user):
 	status = user.email
