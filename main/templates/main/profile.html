@@ -93,13 +93,15 @@
 								{% for event in history %}
 									<div class = "col s12 white" style="border: 1px solid #757575; border-radius: 8px">
 										<p>{{event.date}}</p>
-										<a href="/profile/{{event.ar.user.id}}">{{event.ar.user.last_name}}</a>
+										<p><a href="/profile/{{event.ar.user.id}}">{{event.ar.user.last_name}}</a></p>
+										<hr>
 									</div>
 								{% endfor %}
 							{% elif view_profile.user.email == "home@m.ru" %}
 								{% for event in history %}
 									<p>{{event.date}}</p>
-									<a href="/profile/{{event.cu.user.id}}">{{event.cu.user.last_name}}</a>
+									<p><a href="/profile/{{event.cu.user.id}}">{{event.cu.user.last_name}}</a></p>
+									<hr>
 								{% endfor %}
 							{% endif %}
 						</div>
