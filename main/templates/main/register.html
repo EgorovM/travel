@@ -11,10 +11,10 @@
 				{% csrf_token %}
 				<div class = 'row'>
 					<div class="col s12">
-						<select name = "status">
-					    	<option onclick="unAdmin()" value="consumer" selected>Хочу начать путешествовать!</option>
-					    	<option onclick="unAdmin()" value="home" >Желаю начать сдавать дом!</option>
-					    	<option onclick="unAdmin()" value="repair" >У меня есть свой ремонтный центр!</option>
+						<select class = "status" name = "status">
+					    	<option value="consumer" selected>Хочу начать путешествовать!</option>
+					    	<option value="home" >Желаю начать сдавать дом!</option>
+					    	<option value="repair" >У меня есть свой ремонтный центр!</option>
 					    	<option value="administrator">Я администратор.</option>
 					    </select>
 				    </div>
@@ -61,15 +61,21 @@
 </div>
 
 <script type="text/javascript">
-	function unAdmin(){
-		$(".any_location").hide();
-		$(".choice_location").css("display", "block");
-		console.log("asd")
-	}
+	$('.status').on('change', function() {
+		var value = $(this).val();
+		
+		if(value === "administrator"){
+			$(".any_location").css("display", "block");
+			$(".choice_location").hide();
+		}else{
+			$(".any_location").hide();
+			$(".choice_location").css("display", "block");
+		}
+	});
+
 
 	function Admin(){
-		$(".any_location").css("display", "block");
-		$(".choice_location").hide();
+		
 	}
 </script>
 
